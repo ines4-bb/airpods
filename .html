@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirPodsMaster.DZ | Premium AirPods</title>
+    <style>
+        /* Modern CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Blue Color Palette */
+            --bg-dark: #0a0f1a;
+            --bg-light: #f8fafc;
+            --accent-blue: #0071e3;
+            --accent-blue-dark: #0066cc;
+            --accent-blue-light: #e6f1ff;
+            --card-bg: #1a2238;
+            --card-bg-light: #ffffff;
+            --text-light: #f5f5f7;
+            --text-dark: #1d1d1f;
+            --border: rgba(255,255,255,0.1);
+            --border-light: rgba(0,0,0,0.1);
+            
+            /* Animation Speeds */
+            --speed-fast: 0.2s;
+            --speed-medium: 0.4s;
+            --speed-slow: 0.6s;
+        }
+
+        @font-face {
+            font-family: 'SF Pro';
+            src: url('https://fonts.cdnfonts.com/css/sf-pro-display') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'SF Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background-color var(--speed-medium) ease;
+        }
+
+        /* Header Styles */
+        header {
+            padding: 1.5rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            z-index: 10;
+            background-color: rgba(10, 15, 26, 0.8);
+            backdrop-filter: blur(20px);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #0071e3, #00a2ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        /* Header Controls */
+        .header-controls {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        /* Dark Mode Toggle */
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 113, 227, 0.1);
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all var(--speed-fast) ease;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(0, 113, 227, 0.2);
+        }
+
+        /* Cart Icon */
+        .cart-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 113, 227, 0.1);
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all var(--speed-fast) ease;
+            position: relative;
+        }
+
+        .cart-icon:hover {
+            background: rgba(0, 113, 227, 0.2);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent-blue);
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,113,227,0.15) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            animation: pulse 8s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #ffffff, #b8d8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInUp var(--speed-slow) ease-out;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            opacity: 0.8;
+            margin-bottom: 2rem;
+            animation: fadeInUp var(--speed-slow) ease-out 0.2s forwards;
+            opacity: 0;
+        }
+
+        /* Product Grid */
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            transition: all var(--speed-medium) cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp var(--speed-medium) ease-out forwards;
+            animation-delay: calc(var(--order) * 0.1s);
+        }
+
+        .product-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,113,227,0.1) 0%, rgba(0,0,0,0) 100%);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 113, 227, 0.15);
+            border-color: var(--accent-blue);
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: contain;
+            margin-bottom: 1.5rem;
+            transition: transform var(--speed-medium) ease;
+            border-radius: 8px;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .product-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .price {
+            color: var(--accent-blue);
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .condition {
+            display: inline-block;
+            background: rgba(0, 113, 227, 0.2);
+            color: var(--accent-blue);
+            padding: 0.25rem 0.75rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Modal */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity var(--speed-medium) ease;
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            position: relative;
+            transform: translateY(20px);
+            transition: transform var(--speed-medium) ease;
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity var(--speed-fast) ease;
+        }
+
+        .close-btn:hover {
+            opacity: 1;
+        }
+
+        /* Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background: var(--card-bg);
+            border-left: 1px solid var(--border);
+            z-index: 1000;
+            transition: right 0.3s ease;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.active {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        .cart-item img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-price {
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        .remove-item {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.2s ease;
+        }
+
+        .remove-item:hover {
+            color: var(--accent-blue);
+        }
+
+        .cart-total {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 600;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .checkout-btn:hover {
+            background: var(--accent-blue-dark);
+        }
+
+        /* Light mode adjustments */
+        body.light-mode {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        body.light-mode .hero h1 {
+            background: linear-gradient(90deg, #0071e3, #00a2ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        body.light-mode .product-card {
+            background: var(--card-bg-light);
+            border-color: var(--border-light);
+        }
+
+        body.light-mode .modal-content {
+            background: var(--card-bg-light);
+            border-color: var(--border-light);
+        }
+
+        body.light-mode header {
+            background-color: rgba(248, 250, 252, 0.8);
+            border-bottom-color: var(--border-light);
+        }
+
+        body.light-mode .cart-sidebar {
+            background: var(--card-bg-light);
+            border-left-color: var(--border-light);
+        }
+
+        body.light-mode .cart-item {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem 1.5rem;
+            }
+            
+            .logo {
+                font-size: 1.5rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .products {
+                grid-template-columns: 1fr;
+                padding: 1.5rem;
+            }
+
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateX(-50%) translateY(0); }
+            to { opacity: 0; transform: translateX(-50%) translateY(20px); }
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border);
+            margin-top: 3rem;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">AirPodsMaster.DZ</div>
+        <div class="header-controls">
+            <button class="theme-toggle" onclick="toggleTheme()" id="theme-toggle">
+                <span id="theme-icon">🌙</span>
+            </button>
+            <div class="cart-icon" onclick="toggleCart()">
+                🛒
+                <span class="cart-count" id="cartCount">0</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Premium AirPods Experience</h1>
+        <p>Discover the perfect pair of AirPods with our curated collection of new and refurbished devices</p>
+    </section>
+
+    <!-- Product Grid -->
+    <div class="products" id="productGrid">
+        <!-- Products will be added dynamically by JavaScript -->
+    </div>
+
+    <!-- Product Modal -->
+    <div class="modal" id="productModal">
+        <div class="modal-content">
+            <button class="close-btn" onclick="closeModal()">×</button>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be added by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-btn" onclick="toggleCart()">×</button>
+        </div>
+        
+        <div class="cart-items" id="cartItems">
+            <!-- Cart items will be added here -->
+        </div>
+             <button class="checkout-btn" onclick="window.location.href='file:///C:/Users/user/Desktop/unique.project/special/airpods/airpods.html'">Proceed to Checkout</button>
+
+        <div class="cart-total">
+            <span>Total:</span>
+            <span id="cartTotal">0 DZD</span>
+        </div>
+      
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2023 AirPodsMaster.DZ | Premium AirPods Marketplace</p>
+    </footer>
+
+    <script>
+        // Sample product data
+        const products = [
+            {
+                id: 1,
+                name: "AirPods Pro (2nd Generation)",
+                price: "25,999 DZD",
+                condition: "Like New",
+                description: "Active Noise Cancellation, Spatial Audio, MagSafe Charging Case",
+                image: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MQD83?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1660803972361",
+                features: [
+                    "Active Noise Cancellation",
+                    "Adaptive EQ",
+                    "Spatial Audio",
+                    "Sweat and Water Resistant",
+                    "Up to 6 hours of battery life"
+                ]
+            },
+            {
+                id: 2,
+                name: "AirPods Max",
+                price: "45,999 DZD",
+                condition: "Refurbished",
+                description: "Over-ear design, High-fidelity audio, Active Noise Cancellation",
+                image: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/airpods-max-hero-select-202011?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1633623988000",
+                features: [
+                    "Over-ear design",
+                    "Active Noise Cancellation",
+                    "Transparency mode",
+                    "Spatial audio",
+                    "Up to 20 hours of battery life"
+                ]
+            },
+            {
+                id: 3,
+                name: "AirPods (3rd Generation)",
+                price: "22,999 DZD",
+                condition: "New",
+                description: "Spatial audio, Adaptive EQ, Sweat and water resistant",
+                image: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/MME73?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1632861342000",
+                features: [
+                    "Spatial audio",
+                    "Adaptive EQ",
+                    "Sweat and water resistant",
+                    "MagSafe charging",
+                    "Up to 6 hours of battery life"
+                ]
+            }
+        ];
+
+        // Cart functionality
+        let cart = [];
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts();
+            
+            // Load cart from localStorage
+            const savedCart = localStorage.getItem('airpods-cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCart();
+            }
+            
+            // Animate hero elements
+            setTimeout(() => {
+                document.querySelector('.hero h1').style.opacity = 1;
+                document.querySelector('.hero p').style.opacity = 1;
+            }, 300);
+        });
+
+        // Render products to the grid
+        function renderProducts() {
+            const grid = document.getElementById('productGrid');
+            grid.innerHTML = '';
+
+            products.forEach((product, index) => {
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.style.setProperty('--order', index);
+                card.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" loading="lazy">
+                    <h3>${product.name}</h3>
+                    <div class="price">${product.price}</div>
+                    <span class="condition">${product.condition}</span>
+                `;
+                card.addEventListener('click', () => openModal(product));
+                grid.appendChild(card);
+            });
+        }
+
+        // Modal functions
+        function openModal(product) {
+            const modalBody = document.getElementById('modalBody');
+            modalBody.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: center;">
+                    <div>
+                        <img src="${product.image}" alt="${product.name}" style="width: 100%; border-radius: 12px;">
+                    </div>
+                    <div>
+                        <h2 style="font-size: 1.8rem; margin-bottom: 1rem;">${product.name}</h2>
+                        <div style="font-size: 1.5rem; color: var(--accent-blue); font-weight: 700; margin-bottom: 1rem;">${product.price}</div>
+                        <div style="background: rgba(0, 113, 227, 0.1); color: var(--accent-blue); display: inline-block; padding: 0.25rem 1rem; border-radius: 50px; font-weight: 600; margin-bottom: 1.5rem;">${product.condition}</div>
+                        <p style="margin-bottom: 1.5rem; opacity: 0.9;">${product.description}</p>
+                        <h3 style="margin-bottom: 1rem;">Key Features</h3>
+                        <ul style="margin-bottom: 2rem; padding-left: 1.5rem;">
+                            ${product.features.map(feat => `<li style="margin-bottom: 0.5rem;">${feat}</li>`).join('')}
+                        </ul>
+                        <button style="background: var(--accent-blue); color: white; border: none; padding: 1rem 2rem; border-radius: 50px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; width: 100%;" 
+                                onclick="addToCart(${JSON.stringify(product).replace(/"/g, '&quot;')}); closeModal()">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('productModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('productModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Cart functions
+        function toggleCart() {
+            document.getElementById('cartSidebar').classList.toggle('active');
+        }
+        
+        function addToCart(product) {
+            // Check if product already exists in cart
+            const existingItem = cart.find(item => item.id === product.id);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    ...product,
+                    quantity: 1
+                });
+            }
+            
+            updateCart();
+            showAddedToCart(product.name);
+        }
+        
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+        
+        function updateCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cartCount');
+            const cartTotal = document.getElementById('cartTotal');
+            
+            // Save cart to localStorage
+            localStorage.setItem('airpods-cart', JSON.stringify(cart));
+            
+            // Update cart items
+            cartItems.innerHTML = '';
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Your cart is empty</p>';
+            } else {
+                cart.forEach(item => {
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <img src="${item.image}" alt="${item.name}">
+                        <div class="cart-item-details">
+                            <div class="cart-item-title">${item.name}</div>
+                            <div class="cart-item-price">${item.price}</div>
+                            <div>Quantity: ${item.quantity}</div>
+                        </div>
+                        <button class="remove-item" onclick="removeFromCart(${item.id})">×</button>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+            }
+            
+            // Update cart count
+            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+            
+            // Update total
+            const total = cart.reduce((sum, item) => {
+                const price = parseInt(item.price.replace(/,/g, ''));
+                return sum + (price * item.quantity);
+            }, 0);
+            
+            cartTotal.textContent = `${total.toLocaleString()} DZD`;
+        }
+        
+        function showAddedToCart(productName) {
+            const notification = document.createElement('div');
+            notification.style.position = 'fixed';
+            notification.style.bottom = '20px';
+            notification.style.left = '50%';
+            notification.style.transform = 'translateX(-50%)';
+            notification.style.backgroundColor = 'var(--accent-blue)';
+            notification.style.color = 'white';
+            notification.style.padding = '1rem 2rem';
+            notification.style.borderRadius = '12px';
+            notification.style.zIndex = '1000';
+            notification.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+            notification.style.animation = 'fadeInUp 0.3s ease-out';
+            notification.textContent = `Added ${productName} to cart`;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'fadeOut 0.3s ease-out forwards';
+                setTimeout(() => notification.remove(), 300);
+            }, 2000);
+        }
+
+        // Theme toggle
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const icon = document.getElementById('theme-icon');
+            
+            if (document.body.classList.contains('light-mode')) {
+                icon.textContent = '🌙';
+            } else {
+                icon.textContent = '☀️';
+            }
+        }
+
+        // Close modal when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === document.getElementById('productModal')) {
+                closeModal();
+            }
+            if (e.target === document.getElementById('cartSidebar')) {
+                toggleCart();
+            }
+        });
+    </script>
+</body>
+</html>
